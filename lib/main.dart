@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
 
     AuthService.user.listen((auth.User user) {
       if (user != null) {
-        print(user.email);
+        print('Signed in as ${user.email}');
       } else {
         print('No user');
       }

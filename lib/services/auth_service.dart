@@ -8,10 +8,14 @@ class AuthService {
   static Stream<auth.User> get user => _auth.authStateChanges();
   
   static Future<void> login({String email, String password}) async {
+    print(email);
+    print(password);
+
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } on PlatformException catch (err) {
-      throw (err);
+    } on auth.FirebaseAuthException catch (err) {
+      // throw (err);
+      print(err.message);
     }
   }
 }

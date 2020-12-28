@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:roipil_authentication/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:roipil_authentication/services/auth_service.dart';
@@ -12,8 +13,8 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _password = TextEditingController();
 
     String _validateEmail(String email) {
       if (email.isEmpty) {
@@ -31,6 +32,28 @@ class SignInScreen extends StatelessWidget {
       return null;
     }
 
+    Form _createForm() {
+      return Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            CustomTextFormInput(
+              controller: _email,
+              label: 'Email',
+              validate: _validateEmail,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            CustomTextFormInput(
+              controller: _password,
+              label: 'Password',
+              validate: _validatePassword,
+              obscureText: true,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: kRoipilPrimaryColor,
       body: Center(
@@ -42,30 +65,17 @@ class SignInScreen extends StatelessWidget {
                     'assets/images/roipil_authentication_logo_transparent.png'),
               ),
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  CustomTextFormInput(
-                    controller: email,
-                    label: 'Email',
-                    validate: _validateEmail,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  CustomTextFormInput(
-                    controller: password,
-                    label: 'Password',
-                    validate: _validatePassword,
-                    obscureText: true,
-                  ),
-                ],
-              ),
-            ),
+            _createForm(),
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
                   print('SUCCESS');
-                  // await AuthService.login(email: email.text, password: password.text);
+                  try {
+                    await AuthService.login(
+                        email: _email.text, password: _password.text);
+                  } catch (err) {
+                    print(err);
+                  }
                 } else {
                   print('FAILURE');
                 }
