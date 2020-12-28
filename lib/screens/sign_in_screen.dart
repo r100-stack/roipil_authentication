@@ -81,6 +81,12 @@ class SignInScreen extends StatelessWidget {
                 }
               },
               child: Text('Submit'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await AuthService.logout();
+              },
+              child: Text('Logout'),
             )
           ],
         ),

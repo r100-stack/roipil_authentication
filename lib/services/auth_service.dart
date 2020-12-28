@@ -18,4 +18,10 @@ class AuthService {
       print(err.message);
     }
   }
+
+  static Future<void> logout() {
+    Future.wait([
+      _auth.signOut()
+    ]);
+  }
 }
