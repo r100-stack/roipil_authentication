@@ -7,7 +7,7 @@ class AuthService {
   
   static Stream<auth.User> get user => _auth.authStateChanges();
   
-  static Future<auth.User> login(String email, String password) async {
+  static Future<void> login({String email, String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on PlatformException catch (err) {

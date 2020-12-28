@@ -12,6 +12,9 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+
     String _validateEmail(String email) {
       if (email.isEmpty) {
         return 'Enter email';
@@ -44,11 +47,13 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextFormInput(
+                    controller: email,
                     label: 'Email',
                     validate: _validateEmail,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   CustomTextFormInput(
+                    controller: password,
                     label: 'Password',
                     validate: _validatePassword,
                     obscureText: true,
@@ -60,7 +65,7 @@ class SignInScreen extends StatelessWidget {
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
                   print('SUCCESS');
-                  // auth.User user = await login()s
+                  // await AuthService.login(email: email.text, password: password.text);
                 } else {
                   print('FAILURE');
                 }
