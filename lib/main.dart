@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:roipil_authentication/constants.dart';
+import 'package:roipil_authentication/roipil_authentication.dart';
 import 'package:roipil_authentication/screens/sign_in_screen.dart';
 import 'package:roipil_authentication/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -8,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
+  // await RoipilAuthentication.initialize((auth.User user) => null);
   runApp(MyApp());
 }
 
