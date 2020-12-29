@@ -11,8 +11,6 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('DEBUG: build called');
-
     final _formKey = GlobalKey<FormState>();
 
     TextEditingController _email = TextEditingController();
