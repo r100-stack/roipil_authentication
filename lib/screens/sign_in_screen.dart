@@ -62,7 +62,9 @@ class SignInScreen extends StatelessWidget {
             Flexible(
               child: Image(
                 image: AssetImage(
-                    'assets/images/roipil_authentication_logo_transparent.png'),
+                  'assets/images/roipil_authentication_logo_transparent.png',
+                  package: 'roipil_authentication',
+                ),
               ),
             ),
             _createForm(),
