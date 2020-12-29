@@ -40,6 +40,38 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:668965378499:android:5e2565aac0d118a600c576",
+        "android_client_info": {
+          "package_name": "com.example.trial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668965378499-hrmc10s3fdmvd86jb8rn1e0igle713cs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF8hVFVRSuvz8So-h-R5fI-JVD0b885ic"
+        },
+        {
+          "current_key": "AIzaSyBFyd7xSMyBTjfOR2hBKFndxjZEbus4eyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668965378499-hrmc10s3fdmvd86jb8rn1e0igle713cs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:668965378499:android:57619d87227b608c00c576",
         "android_client_info": {
           "package_name": "com.rohankadkol.chat_app"
