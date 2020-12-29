@@ -54,43 +54,46 @@ class SignInScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      backgroundColor: kRoipilPrimaryColor,
-      body: Center(
-        child: Column(
-          children: [
-            Flexible(
-              child: Image(
-                image: AssetImage(
-                  'assets/images/roipil_authentication_logo_transparent.png',
-                  package: 'roipil_authentication',
+    return Theme(
+      data: kRoipilTheme,
+      child: Scaffold(
+        backgroundColor: kRoipilPrimaryColor,
+        body: Center(
+          child: Column(
+            children: [
+              Flexible(
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/roipil_authentication_logo_transparent.png',
+                    package: 'roipil_authentication',
+                  ),
                 ),
               ),
-            ),
-            _createForm(),
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  print('SUCCESS');
-                  try {
-                    await AuthService.login(
-                        email: _email.text, password: _password.text);
-                  } catch (err) {
-                    print(err);
+              _createForm(),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    print('SUCCESS');
+                    try {
+                      await AuthService.login(
+                          email: _email.text, password: _password.text);
+                    } catch (err) {
+                      print(err);
+                    }
+                  } else {
+                    print('FAILURE');
                   }
-                } else {
-                  print('FAILURE');
-                }
-              },
-              child: Text('Submit'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await AuthService.logout();
-              },
-              child: Text('Logout'),
-            )
-          ],
+                },
+                child: Text('Submit'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await AuthService.logout();
+                },
+                child: Text('Logout'),
+              )
+            ],
+          ),
         ),
       ),
     );
