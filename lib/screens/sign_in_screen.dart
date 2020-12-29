@@ -1,8 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:roipil_authentication/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:roipil_authentication/services/auth_service.dart';
 import 'package:roipil_authentication/widgets/custom_text_form_input.dart';
 
