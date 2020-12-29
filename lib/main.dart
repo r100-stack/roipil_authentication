@@ -6,8 +6,8 @@ import 'package:roipil_authentication/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(MyApp());
 }
 
