@@ -5,9 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:roipil_authentication/constants.dart';
 import 'package:roipil_authentication/services/auth_service.dart';
 import 'package:roipil_authentication/widgets/custom_text_form_input.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class SignInScreen extends StatelessWidget {
   static final String routeName = '/sign-in';
+
+  final Function onSignIn;
+
+  const SignInScreen({
+    this.onSignIn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,20 @@ class SignInScreen extends StatelessWidget {
       return null;
     }
 
+    void _signIn() async {
+      try {
+        auth.User user = await AuthService.login(
+          email: _email.text,
+          password: _password.text,
+        );
+        if (user != null) {
+          onSignIn();
+        }
+      } catch (err) {
+        print(err);
+      }
+    }
+
     Widget _createSignInButton() {
       return Material(
         color: kRoipilAccentColor,
@@ -41,15 +62,11 @@ class SignInScreen extends StatelessWidget {
           splashColor: kRoipilAccentColor,
           onTap: () async {
             if (_formKey.currentState.validate()) {
-              try {
-                await AuthService.login(
-                    email: _email.text, password: _password.text);
-              } catch (err) {
-                print(err);
-              }
+              _signIn();
             }
           },
-          onLongPress: () async { // TODO: Remove sign out feature
+          onLongPress: () async {
+            // TODO: Remove sign out feature
             await AuthService.logout();
           },
           child: Container(
