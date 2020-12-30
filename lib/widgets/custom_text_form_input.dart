@@ -9,21 +9,29 @@ class CustomTextFormInput extends StatelessWidget {
   final Function(String value) onChanged;
   final TextEditingController controller;
 
-  const CustomTextFormInput({
-    this.label,
-    this.validate,
-    this.keyboardType,
-    this.obscureText = false,
-    this.onChanged,
-    this.controller
-  });
+  const CustomTextFormInput(
+      {this.label,
+      this.validate,
+      this.keyboardType,
+      this.obscureText = false,
+      this.onChanged,
+      this.controller});
 
   InputBorder _buildInputBorder(BuildContext context) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(kDefaultBorderRadius),
       borderSide: BorderSide(
         color: Theme.of(context).accentColor,
-        width: 1.0,
+        width: 0.5,
+      ),
+    );
+  }
+
+  InputBorder _buildErrorBorder(BuildContext context) {
+    return _buildInputBorder(context).copyWith(
+      borderSide: BorderSide(
+        color: Colors.red,
+        width: 1.0
       ),
     );
   }
@@ -43,6 +51,8 @@ class CustomTextFormInput extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.black),
         enabledBorder: _buildInputBorder(context),
         focusedBorder: _buildInputBorder(context),
+        errorBorder: _buildErrorBorder(context),
+        focusedErrorBorder: _buildErrorBorder(context),
         labelText: label,
       ),
       validator: validate,

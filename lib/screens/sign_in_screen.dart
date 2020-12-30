@@ -32,6 +32,41 @@ class SignInScreen extends StatelessWidget {
       return null;
     }
 
+    Widget _createSignInButton() {
+      return Material(
+        color: kRoipilAccentColor,
+        borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+          splashColor: kRoipilAccentColor,
+          onTap: () async {
+            if (_formKey.currentState.validate()) {
+              try {
+                await AuthService.login(
+                    email: _email.text, password: _password.text);
+              } catch (err) {
+                print(err);
+              }
+            }
+          },
+          onLongPress: () async { // TODO: Remove sign out feature
+            await AuthService.logout();
+          },
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+                horizontal: kDefaultMargin / 2, vertical: kDefaultMargin),
+            child: Center(
+              child: Text(
+                'Sign In',
+                style: TextStyle(color: kRoipilPrimaryColor),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     Form _createForm() {
       return Form(
         key: _formKey,
@@ -52,6 +87,10 @@ class SignInScreen extends StatelessWidget {
               validate: _validatePassword,
               obscureText: true,
             ),
+            const SizedBox(
+              height: kDefaultMargin * 2,
+            ),
+            _createSignInButton()
           ],
         ),
       );
@@ -73,33 +112,11 @@ class SignInScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                       image: AssetImage(
                         'assets/images/roipil_authentication_logo_transparent.png',
-                        // package: 'roipil_authentication',
+                        package: 'roipil_authentication',
                       ),
                     ),
                   ),
                   _createForm(),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        print('SUCCESS');
-                        try {
-                          await AuthService.login(
-                              email: _email.text, password: _password.text);
-                        } catch (err) {
-                          print(err);
-                        }
-                      } else {
-                        print('FAILURE');
-                      }
-                    },
-                    child: Text('Submit'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await AuthService.logout();
-                    },
-                    child: Text('Logout'),
-                  )
                 ],
               ),
             ),
