@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+const double kDefaultMargin = 20.0;
+const double kDefaultBorderRadius = 20.0;
+
 const Color kRoipilPrimaryColor = Color(0xFFFFCD05);
 const Color kRoipilAccentColor = Color(0xFF10212F);
 

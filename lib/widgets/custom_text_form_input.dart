@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roipil_authentication/constants.dart';
 
 class CustomTextFormInput extends StatelessWidget {
   final String label;
@@ -18,7 +19,8 @@ class CustomTextFormInput extends StatelessWidget {
   });
 
   InputBorder _buildInputBorder(BuildContext context) {
-    return UnderlineInputBorder(
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(kDefaultBorderRadius),
       borderSide: BorderSide(
         color: Theme.of(context).accentColor,
         width: 1.0,

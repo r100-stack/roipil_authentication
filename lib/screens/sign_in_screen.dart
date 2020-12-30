@@ -43,6 +43,9 @@ class SignInScreen extends StatelessWidget {
               validate: _validateEmail,
               keyboardType: TextInputType.emailAddress,
             ),
+            const SizedBox(
+              height: kDefaultMargin,
+            ),
             CustomTextFormInput(
               controller: _password,
               label: 'Password',
@@ -58,41 +61,48 @@ class SignInScreen extends StatelessWidget {
       data: kRoipilTheme,
       child: Scaffold(
         backgroundColor: kRoipilPrimaryColor,
-        body: Center(
-          child: Column(
-            children: [
-              Flexible(
-                child: Image(
-                  image: AssetImage(
-                    'assets/images/roipil_authentication_logo_transparent.png',
-                    package: 'roipil_authentication',
+        body: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(kDefaultMargin),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/images/roipil_authentication_logo_transparent.png',
+                        // package: 'roipil_authentication',
+                      ),
+                    ),
                   ),
-                ),
+                  _createForm(),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        print('SUCCESS');
+                        try {
+                          await AuthService.login(
+                              email: _email.text, password: _password.text);
+                        } catch (err) {
+                          print(err);
+                        }
+                      } else {
+                        print('FAILURE');
+                      }
+                    },
+                    child: Text('Submit'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await AuthService.logout();
+                    },
+                    child: Text('Logout'),
+                  )
+                ],
               ),
-              _createForm(),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    print('SUCCESS');
-                    try {
-                      await AuthService.login(
-                          email: _email.text, password: _password.text);
-                    } catch (err) {
-                      print(err);
-                    }
-                  } else {
-                    print('FAILURE');
-                  }
-                },
-                child: Text('Submit'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await AuthService.logout();
-                },
-                child: Text('Logout'),
-              )
-            ],
+            ),
           ),
         ),
       ),
