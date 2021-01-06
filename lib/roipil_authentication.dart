@@ -1,15 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:roipil_authentication/blocs/auth_bloc.dart';
-import 'package:roipil_authentication/services/auth_service.dart';
+import 'package:roipil_authentication/blocs/roipil_auth_bloc.dart';
+import 'package:roipil_authentication/models/roipil_extended_user.dart';
+import 'package:roipil_authentication/services/roipil_auth_service.dart';
 
 class RoipilAuthentication {
-  static Future<void> initialize(Function(auth.User) onAuthChanged) async {
-    AuthBloc.changeOnAuthChanged(onAuthChanged);
+  static CollectionReference _roipilUsersRef;
+  static CollectionReference _roipilExtendedUsersRef;
+
+  /// Call before the app is runApp() is called in main()
+  static Future<void> initializeApp(CollectionReference roipilUsersRef, CollectionReference roipilExtendedUsersRef) async {
+    _roipilUsersRef = roipilUsersRef;
+    _roipilExtendedUsersRef = roipilExtendedUsersRef;
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+  }
 
-    AuthService.user.listen(onAuthChanged);
+  /// Call after RoipilAuthentication.initializeApp() is called
+  static Future<void> initialAuthUpdates(BuildContext context, RoipilExtendedUser Function() newRoipilExtendedUser) {
+    RoipilAuthService.user.listen((auth.User user) async {
+      if (user == null) {
+        Provider.of<RoipilAuthBloc>(context, listen: false).updateUser(null);
+      } else {
+        RoipilExtendedUser extendedUser = newRoipilExtendedUser();
+        DocumentSnapshot roipilSnapshot =
+            await _roipilUsersRef.doc(user.uid).get();
+        DocumentSnapshot extendedSnapshot =
+            await _roipilExtendedUsersRef.doc(user.uid).get();
+        extendedUser.updateAllFields(user, roipilSnapshot, extendedSnapshot);
+
+        Provider.of<RoipilAuthBloc>(context, listen: false)
+            .updateUser(extendedUser);
+      }
+    });
+    return null;
   }
 }

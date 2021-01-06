@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
-class AuthService {
+class RoipilAuthService {
   static final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
   
   static Stream<auth.User> get user => _auth.authStateChanges();

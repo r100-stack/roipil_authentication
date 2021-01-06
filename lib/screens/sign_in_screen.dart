@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:roipil_authentication/constants.dart';
-import 'package:roipil_authentication/services/auth_service.dart';
+import 'package:roipil_authentication/services/roipil_auth_service.dart';
 import 'package:roipil_authentication/widgets/custom_text_form_input.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
@@ -41,7 +41,7 @@ class SignInScreen extends StatelessWidget {
 
     void _signIn() async {
       try {
-        auth.User user = await AuthService.login(
+        auth.User user = await RoipilAuthService.login(
           email: _email.text,
           password: _password.text,
         );
@@ -67,7 +67,7 @@ class SignInScreen extends StatelessWidget {
           },
           onLongPress: () async {
             // TODO: Remove sign out feature
-            await AuthService.logout();
+            await RoipilAuthService.logout();
           },
           child: Container(
             width: double.infinity,

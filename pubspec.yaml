@@ -33,6 +33,8 @@ dependencies:
   cloud_firestore: ^0.14.4
   email_validator: ^1.0.6
   google_fonts: ^1.1.0
+  provider: ^4.3.2+3
+  after_layout: ^1.0.7+2
   roipil_base:
     git:
       url: git://github.com/roipil/roipil_base.git
