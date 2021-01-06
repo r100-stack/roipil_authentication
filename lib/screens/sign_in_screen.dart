@@ -128,8 +128,8 @@ class SignInScreen extends StatelessWidget {
                     child: Image(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                        'assets/images/roipil_authentication_logo_transparent.png',
-                        package: 'roipil_authentication',
+                        'assets/authentication/images/roipil_authentication_logo_transparent.png',
+                        package: 'roipil_base',
                       ),
                     ),
                   ),

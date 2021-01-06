@@ -33,6 +33,10 @@ dependencies:
   cloud_firestore: ^0.14.4
   email_validator: ^1.0.6
   google_fonts: ^1.1.0
+  roipil_base:
+    git:
+      url: git://github.com/roipil/roipil_base.git
+
 
 dev_dependencies:
   flutter_test:
