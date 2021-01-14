@@ -18,8 +18,8 @@ class RoipilAuthService {
     }
   }
 
-  static Future<void> logout() {
-    Future.wait([
+  static Future<void> logout() async {
+    await Future.wait([
       _auth.signOut()
     ]);
   }
