@@ -8,7 +8,7 @@ class RoipilUser {
   void updateRoipilUser(auth.User user, DocumentSnapshot snapshot) {
     firebaseUser = user;
 
-    if (snapshot == null) {
+    if (snapshot == null || snapshot.data() == null) {
       return;
     }
     
