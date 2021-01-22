@@ -45,7 +45,7 @@ class SignInScreen extends StatelessWidget {
           email: _email.text,
           password: _password.text,
         );
-        if (user != null) {
+        if (user != null && onSignIn != null) {
           onSignIn();
         }
       } catch (err) {
@@ -107,7 +107,11 @@ class SignInScreen extends StatelessWidget {
             const SizedBox(
               height: kDefaultMargin * 2,
             ),
-            _createSignInButton()
+            _createSignInButton(),
+            FlatButton(
+              onPressed: () => RoipilAuthService.loginAnonymously(),
+              child: Text('Login anonymously'),
+            )
           ],
         ),
       );

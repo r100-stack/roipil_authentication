@@ -18,6 +18,17 @@ class RoipilAuthService {
     }
   }
 
+  static Future<auth.User> loginAnonymously() async {
+    try {
+      auth.UserCredential userCredential = await _auth.signInAnonymously();
+      return userCredential.user;
+    } on auth.FirebaseAuthException catch (err) {
+      // throw (err); TODO: May need to throw the exception? Because _signIn can catch the exception
+      print(err.message);
+      return null;
+    }
+  }
+
   static Future<void> logout() async {
     await Future.wait([
       _auth.signOut()

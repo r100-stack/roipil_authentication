@@ -7,6 +7,11 @@ class RoipilUser {
 
   void updateRoipilUser(auth.User user, DocumentSnapshot snapshot) {
     firebaseUser = user;
+
+    if (snapshot == null) {
+      return;
+    }
+    
     name = snapshot.data()['name'];
   }
 }

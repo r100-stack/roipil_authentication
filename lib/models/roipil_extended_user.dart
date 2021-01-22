@@ -4,10 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 abstract class RoipilExtendedUser extends RoipilUser {
   void updateRoipilExtendedUser(DocumentSnapshot snapshot);
-  
-  void updateAllFields(auth.User firebaseUser, DocumentSnapshot roipilSnapshot, DocumentSnapshot extendedSnapshot) {
+
+  void updateAllFields(
+    auth.User firebaseUser,
+    DocumentSnapshot roipilSnapshot,
+    DocumentSnapshot extendedSnapshot,
+  ) {
     updateRoipilUser(firebaseUser, roipilSnapshot);
-    updateRoipilExtendedUser(extendedSnapshot);
+
+    if (extendedSnapshot != null) {
+      updateRoipilExtendedUser(extendedSnapshot);
+    }
   }
 
   // void updateRoipilExtendedUser(auth.User firebaseUser, DocumentSnapshot roipilSnapshot, DocumentSnapshot trialsnapshot) {
@@ -20,4 +27,4 @@ abstract class RoipilExtendedUser extends RoipilUser {
   //   user.updateTrialExtendedUser(trialsnapshot);
   //   return user;
   // }
-} 
+}

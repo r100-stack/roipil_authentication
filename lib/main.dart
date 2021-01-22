@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> with AfterLayoutMixin<MyApp> {
     TrialUser user = context.watch<RoipilAuthBloc>().user;
 
     return MaterialApp(
-      title: user?.name ?? 'Null',
+      title: user?.firebaseUser?.uid ?? 'Null',
       debugShowCheckedModeBanner: false,
       theme: kRoipilTheme,
       home: SignInScreen(),

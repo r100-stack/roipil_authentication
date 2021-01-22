@@ -13,7 +13,10 @@ class RoipilAuthentication {
   static CollectionReference _roipilExtendedUsersRef;
 
   /// Call before the app is runApp() is called in main()
-  static Future<void> initializeApp(CollectionReference roipilUsersRef, CollectionReference roipilExtendedUsersRef) async {
+  static Future<void> initializeApp(
+    CollectionReference roipilUsersRef,
+    CollectionReference roipilExtendedUsersRef,
+  ) async {
     _roipilUsersRef = roipilUsersRef;
     _roipilExtendedUsersRef = roipilExtendedUsersRef;
     WidgetsFlutterBinding.ensureInitialized();
@@ -21,16 +24,23 @@ class RoipilAuthentication {
   }
 
   /// Call after RoipilAuthentication.initializeApp() is called
-  static Future<void> initialAuthUpdates(BuildContext context, RoipilExtendedUser Function() newRoipilExtendedUser) {
+  static Future<void> initialAuthUpdates(
+    BuildContext context,
+    RoipilExtendedUser Function() newRoipilExtendedUser,
+  ) {
     RoipilAuthService.user.listen((auth.User user) async {
       if (user == null) {
         Provider.of<RoipilAuthBloc>(context, listen: false).updateUser(null);
       } else {
         RoipilExtendedUser extendedUser = newRoipilExtendedUser();
-        DocumentSnapshot roipilSnapshot =
-            await _roipilUsersRef.doc(user.uid).get();
-        DocumentSnapshot extendedSnapshot =
-            await _roipilExtendedUsersRef.doc(user.uid).get();
+        DocumentSnapshot roipilSnapshot;
+        DocumentSnapshot extendedSnapshot;
+
+        if (!user.isAnonymous) {
+          roipilSnapshot = await _roipilUsersRef.doc(user.uid).get();
+          extendedSnapshot = await _roipilExtendedUsersRef.doc(user.uid).get();
+        }
+
         extendedUser.updateAllFields(user, roipilSnapshot, extendedSnapshot);
 
         Provider.of<RoipilAuthBloc>(context, listen: false)
