@@ -14,8 +14,12 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
-  await RoipilAuthentication.initializeApp(
-      kRoipilUsersRef, kRoipilExtendedUsersRef);
+  // await RoipilAuthentication.initializeApp(
+  //     kRoipilUsersRef, kRoipilExtendedUsersRef);
+  await RoipilAuthentication.initializeApp();
+  RoipilAuthentication.setupAuthRefs(kRoipilUsersRef, kRoipilExtendedUsersRef);
+  // WidgetsFlutterBinding.ensureInitialized();
+  //   await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [

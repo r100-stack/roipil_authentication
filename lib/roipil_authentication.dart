@@ -12,18 +12,22 @@ class RoipilAuthentication {
   static CollectionReference _roipilUsersRef;
   static CollectionReference _roipilExtendedUsersRef;
 
-  /// Call before the app is runApp() is called in main()
-  static Future<void> initializeApp(
-    CollectionReference roipilUsersRef,
-    CollectionReference roipilExtendedUsersRef,
-  ) async {
-    _roipilUsersRef = roipilUsersRef;
-    _roipilExtendedUsersRef = roipilExtendedUsersRef;
+  /// Call #1: Before runApp() is called in main(). Before [setupAuthRefs]() and [initialAuthUpdates]()
+  static Future<void> initializeApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
   }
 
-  /// Call after RoipilAuthentication.initializeApp() is called
+  /// Call #2: After [initializeApp]() but before runApp() and [initialAuthUpdates]()
+  static void setupAuthRefs(
+    CollectionReference roipilUsersRef,
+    CollectionReference roipilExtendedUsersRef,
+  ) {
+    _roipilUsersRef = roipilUsersRef;
+    _roipilExtendedUsersRef = roipilExtendedUsersRef;
+  }
+
+  /// Call #3: After [initializeApp]() and [setupAuthRefs]
   static Future<void> initialAuthUpdates(
     BuildContext context,
     RoipilExtendedUser Function() newRoipilExtendedUser,
