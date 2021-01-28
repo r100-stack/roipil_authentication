@@ -31,26 +31,41 @@ class RoipilAuthentication {
   static Future<void> initialAuthUpdates(
     BuildContext context,
     RoipilExtendedUser Function() newRoipilExtendedUser,
-  ) {
+  ) async {
+    auth.User firebaseUser = await RoipilAuthService.getCachedLogin();
+    if (firebaseUser != null) {
+      await _createRoipilExtendedUserAndUpdateProvider(
+          newRoipilExtendedUser, firebaseUser, context);
+    }
+
     RoipilAuthService.user.listen((auth.User user) async {
       if (user == null) {
         Provider.of<RoipilAuthBloc>(context, listen: false).updateUser(null);
       } else {
-        RoipilExtendedUser extendedUser = newRoipilExtendedUser();
-        DocumentSnapshot roipilSnapshot;
-        DocumentSnapshot extendedSnapshot;
-
-        if (!user.isAnonymous) {
-          roipilSnapshot = await _roipilUsersRef.doc(user.uid).get();
-          extendedSnapshot = await _roipilExtendedUsersRef.doc(user.uid).get();
-        }
-
-        extendedUser.updateAllFields(user, roipilSnapshot, extendedSnapshot);
-
-        Provider.of<RoipilAuthBloc>(context, listen: false)
-            .updateUser(extendedUser);
+        await _createRoipilExtendedUserAndUpdateProvider(
+            newRoipilExtendedUser, user, context);
       }
     });
     return null;
+  }
+
+  static Future _createRoipilExtendedUserAndUpdateProvider(
+    RoipilExtendedUser newRoipilExtendedUser(),
+    auth.User user,
+    BuildContext context,
+  ) async {
+    RoipilExtendedUser extendedUser = newRoipilExtendedUser();
+    DocumentSnapshot roipilSnapshot;
+    DocumentSnapshot extendedSnapshot;
+
+    if (!user.isAnonymous) {
+      roipilSnapshot = await _roipilUsersRef.doc(user.uid).get();
+      extendedSnapshot = await _roipilExtendedUsersRef.doc(user.uid).get();
+    }
+
+    extendedUser.updateAllFields(user, roipilSnapshot, extendedSnapshot);
+
+    Provider.of<RoipilAuthBloc>(context, listen: false)
+        .updateUser(extendedUser);
   }
 }

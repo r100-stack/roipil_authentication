@@ -7,6 +7,14 @@ class RoipilAuthService {
 
   static Stream<auth.User> get user => _auth.authStateChanges();
 
+  static Future<auth.User> getCachedLogin() async {
+    auth.User firebaseUser = _auth.currentUser;
+    if (firebaseUser == null) {
+      firebaseUser = await _auth.authStateChanges().first;
+    }
+    return firebaseUser;
+  }
+
   static Future<auth.User> login({String email, String password}) async {
     try {
       logout(); // TODO: Is this needed? Because what if tries to sign into another account without signing out, and say the second sign in failed. Then will also lose the first sign in. Then the user has to sign into the first one again. Included it here because sometimes, Provider state lost on Flutter Web. Hence, user is logged in, but shows as logged out. On re-signing in, onAuthState is not called. Hence, without logging out, user can never log back in again!
