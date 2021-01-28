@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 class RoipilAuthService {
   static final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
 
@@ -17,6 +19,9 @@ class RoipilAuthService {
 
   static Future<auth.User> login({String email, String password}) async {
     try {
+      if (kIsWeb) {
+        await _auth.setPersistence(auth.Persistence.LOCAL);
+      }
       logout(); // TODO: Is this needed? Because what if tries to sign into another account without signing out, and say the second sign in failed. Then will also lose the first sign in. Then the user has to sign into the first one again. Included it here because sometimes, Provider state lost on Flutter Web. Hence, user is logged in, but shows as logged out. On re-signing in, onAuthState is not called. Hence, without logging out, user can never log back in again!
 
       auth.UserCredential userCredential = await _auth
