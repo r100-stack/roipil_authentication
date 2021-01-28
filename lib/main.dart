@@ -66,7 +66,13 @@ class _MyAppState extends State<MyApp> with AfterLayoutMixin<MyApp> {
       title: user?.firebaseUser?.uid ?? 'Null',
       debugShowCheckedModeBanner: false,
       theme: kRoipilTheme,
-      home: SignInScreen(),
+      home: SignInScreen(
+        onSignIn: () {
+          TrialUser user =
+              Provider.of<RoipilAuthBloc>(context, listen: false).user;
+          print(user?.firebaseUser?.uid ?? 'Null');
+        },
+      ),
     );
   }
 }

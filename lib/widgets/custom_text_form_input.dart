@@ -7,6 +7,7 @@ class CustomTextFormInput extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final Function(String value) onChanged;
+  final Function(String value) onSubmit;
   final TextEditingController controller;
 
   const CustomTextFormInput(
@@ -15,6 +16,7 @@ class CustomTextFormInput extends StatelessWidget {
       this.keyboardType,
       this.obscureText = false,
       this.onChanged,
+      this.onSubmit,
       this.controller});
 
   InputBorder _buildInputBorder(BuildContext context) {
@@ -41,6 +43,7 @@ class CustomTextFormInput extends StatelessWidget {
     return TextFormField(
       controller: controller,
       onChanged: onChanged,
+      onFieldSubmitted: onSubmit,
       obscureText: obscureText,
       cursorColor: Theme.of(context).accentColor,
       keyboardType: keyboardType,
