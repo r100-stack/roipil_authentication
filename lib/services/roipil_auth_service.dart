@@ -12,7 +12,7 @@ class RoipilAuthService {
   static Future<auth.User> getCachedLogin() async {
     auth.User firebaseUser = _auth.currentUser;
     if (firebaseUser == null) {
-      firebaseUser = await _auth.authStateChanges().first;
+      firebaseUser = await _auth.onAuthStateChanged.first;
     }
     return firebaseUser;
   }
