@@ -277,38 +277,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:668965378499:android:a31be7db95df723000c576",
-        "android_client_info": {
-          "package_name": "com.roipil.isalsu"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "668965378499-hrmc10s3fdmvd86jb8rn1e0igle713cs.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCF8hVFVRSuvz8So-h-R5fI-JVD0b885ic"
-        },
-        {
-          "current_key": "AIzaSyBFyd7xSMyBTjfOR2hBKFndxjZEbus4eyo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "668965378499-hrmc10s3fdmvd86jb8rn1e0igle713cs.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

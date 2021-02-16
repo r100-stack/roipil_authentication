@@ -11,10 +11,7 @@ abstract class RoipilExtendedUser extends RoipilUser {
     DocumentSnapshot extendedSnapshot,
   ) {
     updateRoipilUser(firebaseUser, roipilSnapshot);
-
-    if (extendedSnapshot != null) {
-      updateRoipilExtendedUser(extendedSnapshot);
-    }
+    updateRoipilExtendedUser(extendedSnapshot);
   }
 
   // void updateRoipilExtendedUser(auth.User firebaseUser, DocumentSnapshot roipilSnapshot, DocumentSnapshot trialsnapshot) {

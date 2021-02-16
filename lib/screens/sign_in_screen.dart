@@ -47,7 +47,7 @@ class SignInScreen extends StatelessWidget {
     }
 
     try {
-      auth.User user = await RoipilAuthService.login(
+      auth.User user = await RoipilAuthService.signIn(
         email: _email.text,
         password: _password.text,
       );
@@ -90,7 +90,7 @@ class SignInScreen extends StatelessWidget {
       onTap: () => _signIn(),
       onLongPress: () async {
         // TODO: Remove sign out feature
-        await RoipilAuthService.logout();
+        await RoipilAuthService.signOut();
       },
       text: 'Sign in',
     );
@@ -99,7 +99,7 @@ class SignInScreen extends StatelessWidget {
   Widget _createSignOutButton() {
     return _createCustomButton(
       onTap: () {
-        RoipilAuthService.logout();
+        RoipilAuthService.signOut();
       },
       text: 'Sign out',
     );
