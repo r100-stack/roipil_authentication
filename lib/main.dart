@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> with AfterLayoutMixin<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    TrialUser user = context.watch<RoipilAuthBloc>().user;
+    TrialUser? user = context.watch<RoipilAuthBloc>().user as TrialUser?;
 
     return MaterialApp(
       title: user?.firebaseUser?.uid ?? 'Null',
@@ -51,8 +51,8 @@ class _MyAppState extends State<MyApp> with AfterLayoutMixin<MyApp> {
       theme: kRoipilTheme,
       home: SignInScreen(
         onSignIn: () {
-          TrialUser user =
-              Provider.of<RoipilAuthBloc>(context, listen: false).user;
+          TrialUser? user =
+              Provider.of<RoipilAuthBloc>(context, listen: false).user as TrialUser?;
           print(user?.firebaseUser?.uid ?? 'Null');
         },
       ),

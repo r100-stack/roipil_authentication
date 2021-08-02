@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:roipil_authentication/constants.dart';
 
 class CustomTextFormInput extends StatelessWidget {
-  final String label;
-  final Function(String value) validate;
-  final TextInputType keyboardType;
+  final String? label;
+  final Function(String value)? validate;
+  final TextInputType? keyboardType;
   final bool obscureText;
-  final Function(String value) onChanged;
-  final Function(String value) onSubmit;
-  final TextEditingController controller;
+  final Function(String value)? onChanged;
+  final Function(String value)? onSubmit;
+  final TextEditingController? controller;
 
   const CustomTextFormInput(
       {this.label,
@@ -58,7 +58,7 @@ class CustomTextFormInput extends StatelessWidget {
         focusedErrorBorder: _buildErrorBorder(context),
         labelText: label,
       ),
-      validator: validate,
+      validator: validate as String? Function(String?)?,
     );
   }
 }

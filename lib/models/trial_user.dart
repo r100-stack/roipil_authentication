@@ -6,7 +6,7 @@ import 'package:roipil_authentication/models/roipil_extended_user.dart';
 import 'package:roipil_authentication/models/roipil_user.dart';
 
 class TrialUser extends RoipilExtendedUser {
-  String role;
+  String? role;
 
   TrialUser();
 
@@ -18,8 +18,8 @@ class TrialUser extends RoipilExtendedUser {
   // }
 
   @override
-  void updateRoipilExtendedUser(DocumentSnapshot snapshot) {
-    role = snapshot.get('role');
+  void updateRoipilExtendedUser(DocumentSnapshot? snapshot) {
+    role = snapshot!.get('role');
   }
 }
 
@@ -27,9 +27,9 @@ class Abc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TrialUser trialUser = TrialUser();
-    auth.User user;
-    DocumentSnapshot roipilSnapshot;
-    DocumentSnapshot extendedSnapshot;
+    auth.User? user;
+    DocumentSnapshot? roipilSnapshot;
+    DocumentSnapshot? extendedSnapshot;
     trialUser.updateAllFields(user, roipilSnapshot, extendedSnapshot);
 
     return Container(

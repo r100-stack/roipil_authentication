@@ -14,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 class SignInScreen extends StatelessWidget {
   static final String routeName = '/sign-in';
 
-  final Function onSignIn;
+  final Function? onSignIn;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -25,7 +25,7 @@ class SignInScreen extends StatelessWidget {
     this.onSignIn,
   });
 
-  String _validateEmail(String email) {
+  String? _validateEmail(String email) {
     if (email.isEmpty) {
       return 'Enter email';
     } else if (!EmailValidator.validate(email)) {
@@ -34,7 +34,7 @@ class SignInScreen extends StatelessWidget {
     return null;
   }
 
-  String _validatePassword(String password) {
+  String? _validatePassword(String password) {
     if (password.isEmpty) {
       return 'Enter password';
     }
@@ -42,17 +42,17 @@ class SignInScreen extends StatelessWidget {
   }
 
   void _signIn() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
 
     try {
-      auth.User user = await RoipilAuthService.signIn(
+      auth.User? user = await RoipilAuthService.signIn(
         email: _email.text,
         password: _password.text,
       );
       if (user != null && onSignIn != null) {
-        onSignIn();
+        onSignIn!();
       }
     } catch (err) {
       print(err);
@@ -60,7 +60,7 @@ class SignInScreen extends StatelessWidget {
   }
 
   Widget _createCustomButton(
-      {Function onTap, Function onLongPress, String text}) {
+      {Function? onTap, Function? onLongPress, required String text}) {
     // TODO: Make this a widget?
     return Material(
       color: kRoipilAccentColor,
@@ -68,8 +68,8 @@ class SignInScreen extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(kDefaultBorderRadius),
         splashColor: kRoipilAccentColor,
-        onTap: onTap,
-        onLongPress: onLongPress,
+        onTap: onTap as void Function()?,
+        onLongPress: onLongPress as void Function()?,
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(
@@ -139,7 +139,7 @@ class SignInScreen extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Signed in as ${user.firebaseUser.email}',
+          'Signed in as ${user.firebaseUser!.email}',
           style: GoogleFonts.openSans(
             fontWeight: FontWeight.bold,
             fontSize: 22.0,
@@ -158,7 +158,7 @@ class SignInScreen extends StatelessWidget {
     // TextEditingController _email = TextEditingController();
     // TextEditingController _password = TextEditingController();
 
-    RoipilExtendedUser user = Provider.of<RoipilAuthBloc>(context).user;
+    RoipilExtendedUser? user = Provider.of<RoipilAuthBloc>(context).user;
     bool isLoggedIn = user?.firebaseUser != null;
 
     return Theme(
@@ -185,7 +185,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ]..addAll(
-                    isLoggedIn ? [_buildSignOutView(user)] : [_createForm()],
+                    isLoggedIn ? [_buildSignOutView(user!)] : [_createForm()],
                   ),
               ),
             ),

@@ -3,12 +3,12 @@ import 'package:roipil_authentication/models/roipil_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 abstract class RoipilExtendedUser extends RoipilUser {
-  void updateRoipilExtendedUser(DocumentSnapshot snapshot);
+  void updateRoipilExtendedUser(DocumentSnapshot? snapshot);
 
   void updateAllFields(
-    auth.User firebaseUser,
-    DocumentSnapshot roipilSnapshot,
-    DocumentSnapshot extendedSnapshot,
+    auth.User? firebaseUser,
+    DocumentSnapshot? roipilSnapshot,
+    DocumentSnapshot? extendedSnapshot,
   ) {
     updateRoipilUser(firebaseUser, roipilSnapshot);
     updateRoipilExtendedUser(extendedSnapshot);

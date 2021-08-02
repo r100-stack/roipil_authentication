@@ -9,8 +9,8 @@ import 'package:roipil_authentication/models/roipil_extended_user.dart';
 import 'package:roipil_authentication/services/roipil_auth_service.dart';
 
 class RoipilAuthentication {
-  static CollectionReference _roipilExtendedUsersRef;
-  static RoipilExtendedUser Function() _generateNewRoipilExtendedUser;
+  static late CollectionReference _roipilExtendedUsersRef;
+  static late RoipilExtendedUser Function() _generateNewRoipilExtendedUser;
 
   /// Call #1: Before runApp() is called in main() and also before [initialAuthUpdates]()
   static Future<void> initializeApp(
@@ -27,10 +27,10 @@ class RoipilAuthentication {
   /// Call #2: After [initializeApp]()
   static Future initialAuthUpdates(BuildContext context) async {
     auth.FirebaseAuth firebaseAuth = RoipilAuthService.firebaseAuth;
-    Stream<auth.User> userChanges = firebaseAuth.userChanges();
+    Stream<auth.User?> userChanges = firebaseAuth.userChanges();
 
-    userChanges.listen((auth.User firebaseUser) async {
-      RoipilExtendedUser user;
+    userChanges.listen((auth.User? firebaseUser) async {
+      RoipilExtendedUser? user;
 
       if (firebaseUser != null) {
         String uid = firebaseUser.uid;
