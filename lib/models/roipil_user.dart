@@ -12,6 +12,6 @@ class RoipilUser {
       return;
     }
     
-    name = snapshot.data()['name'];
+    name = snapshot.get('name');
   }
 }

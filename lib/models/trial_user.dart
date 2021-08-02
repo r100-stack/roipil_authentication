@@ -19,7 +19,7 @@ class TrialUser extends RoipilExtendedUser {
 
   @override
   void updateRoipilExtendedUser(DocumentSnapshot snapshot) {
-    role = snapshot.data()['role'];
+    role = snapshot.get('role');
   }
 }
 
